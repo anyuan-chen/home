@@ -1,8 +1,53 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
+const neueMontreal = localFont({
+  src: [
+    {
+      path: "../../public/neuemontreal/NeueMontreal-Bold.woff2",
+      weight: "bold",
+      style: "normal",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-BoldItalic.woff2",
+      weight: "bold",
+      style: "italic",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-Italic.woff2",
+      weight: "normal",
+      style: "italic",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-LightItalic.woff2",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-MediumItalic.woff2",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../../public/neuemontreal/NeueMontreal-Regular.woff2",
+      weight: "normal",
+      style: "normal",
+    },
+  ],
+  variable: "--font-neue-montreal",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +61,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={neueMontreal.variable}>{children}</body>
+      <Toaster></Toaster>
     </html>
   );
 }

@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+All route-specific code is inside of the app folder, in components.
 
-## Getting Started
+This project is structured in the following way:
 
-First, run the development server:
+- utils contains utility functions, seperated into client and server-friendly execution environments
+- prefer server components over client components whenever possible
+- useSWR in order to fetch on client side
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Server actions are stored alongside the files in which they are used, not in the utilities folder.
+Server actions are named according to their function.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Use default classname sets in order to style typography. Modify if needed for effect.
+Use Framer motion to animate everything needed. Stick to the following principles:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Animation duration should not be more than 200ms for interactions to feel immediate
+- Animation values should be proportional to the trigger size:
+- Actions that are frequent and low in novelty should avoid extraneous animations: 2
+- Looping animations should pause when not visible on the screen to offload CPU and GPU usage
+- Use scroll-behavior: smooth for navigating to in-page anchors, with an appropriate offset
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+When fetching data:
 
-## Learn More
+- Optimistically update data locally and roll back on server error with feedback
+- Inputs should be wrapped with a <form> to submit by pressing Enter
+- Inputs should disable spellcheck and autocomplete attributes most of the time
+- Toggles should immediately take effect, not require confirmation
+- Decorative elements (glows, gradients) should disable pointer-events to not hijack events
+- Interactive elements in a vertical or horizontal list should have no dead areas between each element, instead, increase their padding
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Notes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Modals -> Dialogs handled by ui/dialog.tsx
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
