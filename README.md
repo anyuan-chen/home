@@ -26,3 +26,9 @@ When fetching data:
 - Toggles should immediately take effect, not require confirmation
 - Decorative elements (glows, gradients) should disable pointer-events to not hijack events
 - Interactive elements in a vertical or horizontal list should have no dead areas between each element, instead, increase their padding
+
+
+Notes:
+
+Modals -> Dialogs handled by ui/dialog.tsx
+
