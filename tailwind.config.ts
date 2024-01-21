@@ -53,6 +53,11 @@ const config = {
             DEFAULT: "hsl(94, 67%, 92%)",
             darker: "hsl(94, 67%, 91%)",
           },
+          orange: {
+            lighter: "hsl(32, 70%, 81%)",
+            DEFAULT: "hsl(32, 70%, 82%)",
+            darker: "hsl(32, 70%, 83%)",
+          },
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
