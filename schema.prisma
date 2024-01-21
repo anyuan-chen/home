@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  from         String
+  subject      String
+  body         String
+  last_fm_url  String
+  artist       String
+  title        String
+  time_created DateTime
+  Song         Song     @relation(fields: [last_fm_url], references: [last_fm_url])
+}
+
+model Song {
+  last_fm_url String    @id
+  artist      String
+  title       String
+  Message     Message[]
+}
+
+model SpotifyAlbum {
+  href                   String?
+  id                     String                @id
+  name                   String?
+  release_date           String?
+  release_date_precision String?
+  total_tracks           Int?
+  type                   String?
+  uri                    String?
+  SpotifyImage           SpotifyImage[]
+  SpotifyRelationship    SpotifyRelationship[]
+}
+
+model SpotifyArtist {
+  href                String?
+  id                  String                @id
+  name                String?
+  type                String?
+  uri                 String?
+  SpotifyImage        SpotifyImage[]
+  SpotifyRelationship SpotifyRelationship[]
+}
+
+model SpotifyImage {
+  id            String         @id
+  url           String
+  width         Int?
+  height        Int?
+  album_id      String?
+  artist_id     String?
+  SpotifyAlbum  SpotifyAlbum?  @relation(fields: [album_id], references: [id])
+  SpotifyArtist SpotifyArtist? @relation(fields: [artist_id], references: [id])
+}
+
+model SpotifyListen {
+  id            String      @id
+  startedAt     DateTime
+  deviceType    String?
+  repeat_state  String?
+  shuffle_state Boolean?
+  song_id       String
+  SpotifySong   SpotifySong @relation(fields: [song_id], references: [id])
+}
+
+model SpotifyRelationship {
+  artist_id     String
+  song_id       String
+  album_id      String
+  SpotifyAlbum  SpotifyAlbum  @relation(fields: [album_id], references: [id])
+  SpotifyArtist SpotifyArtist @relation(fields: [artist_id], references: [id])
+  SpotifySong   SpotifySong   @relation(fields: [song_id], references: [id])
+
+  @@id([artist_id, song_id, album_id])
+}
+
+model SpotifySong {
+  duration_ms         Int?
+  explicit            Boolean?
+  href                String?
+  id                  String                @id
+  name                String?
+  popularity          Int?
+  SpotifyListen       SpotifyListen[]
+  SpotifyRelationship SpotifyRelationship[]
+  SongSubmission      SongSubmission[]
+}
+
+model SpotifyUser {
+  email         String   @id 
+  access_token  String   @db.LongText
+  refresh_token String   @db.LongText
+  expiry_time   DateTime
+  token_type    String   @db.LongText
+}
+
+enum SceneType {
+	Letter
+	Title
+	Double
+	TripleLinear
+	TripleStagger
+}
+
+model Card {
+  id String @id @default(uuid())
+  scenes CardScene[]
+  sound_path String?
+}
+
+model CardScene {
+  data Json
+  order Int
+  duration Int
+  scene_id String @id @default(uuid())
+  card_id String
+
+  card Card @relation(fields: [card_id], references: [id])
+}
+
+model CherishgramRemotionSites {
+  siteName String @id
+  bucketName String
+  timeCreated DateTime @default(now())
+}
+
+enum PersonalContentSubmissionTypes {
+  Lyric
+  Link
+  Quote
+}
+
+model PersonalContentSubmission {
+  id String @id @default(uuid())
+  content String
+  type PersonalContentSubmissionTypes
+  dateCreated DateTime @default(now())
+}
+
+model QuoteSubmission {
+  id String @id @default(uuid())
+  quote String
+  author String
+}
+
+model SongSubmission {
+  id String @id @default(uuid())
+  song_id String 
+  song SpotifySong @relation(fields: [song_id], references: [id])
+
+  @@index([song_id])
+}
+
+model LinkSubmission {
+  id String @id @default(uuid())
+  link String
+  linkText String 
+}
