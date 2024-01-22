@@ -91,7 +91,7 @@ model SpotifySong {
   popularity          Int?
   SpotifyListen       SpotifyListen[]
   SpotifyRelationship SpotifyRelationship[]
-  SongSubmission      SongSubmission[]
+  LyricSubmission      LyricSubmission[]
 }
 
 model SpotifyUser {
@@ -147,14 +147,15 @@ model PersonalContentSubmission {
 
 model QuoteSubmission {
   id String @id @default(uuid())
-  quote String
+  content String
   author String
 }
 
-model SongSubmission {
+model LyricSubmission {
   id String @id @default(uuid())
   song_id String 
   song SpotifySong @relation(fields: [song_id], references: [id])
+  content String
 
   @@index([song_id])
 }
