@@ -36,7 +36,7 @@ model SpotifyAlbum {
   total_tracks           Int?
   type                   String?
   uri                    String?
-  SpotifyImage           SpotifyImage[]
+  SpotifyImage           SpotifyAlbumImage[]
   SpotifyRelationship    SpotifyRelationship[]
 }
 
@@ -46,18 +46,23 @@ model SpotifyArtist {
   name                String?
   type                String?
   uri                 String?
-  SpotifyImage        SpotifyImage[]
+  SpotifyImage        SpotifyArtistImage[]
   SpotifyRelationship SpotifyRelationship[]
 }
 
-model SpotifyImage {
-  id            String         @id
-  url           String
+model SpotifyAlbumImage {
+  url           String 
   width         Int?
   height        Int?
-  album_id      String?
-  artist_id     String?
+  album_id      String @id
   SpotifyAlbum  SpotifyAlbum?  @relation(fields: [album_id], references: [id])
+}
+
+model SpotifyArtistImage {
+  url           String 
+  width         Int?
+  height        Int?
+  artist_id     String @id
   SpotifyArtist SpotifyArtist? @relation(fields: [artist_id], references: [id])
 }
 
@@ -67,7 +72,7 @@ model SpotifyListen {
   deviceType    String?
   repeat_state  String?
   shuffle_state Boolean?
-  song_id       String
+  song_id       String 
   SpotifySong   SpotifySong @relation(fields: [song_id], references: [id])
 }
 
