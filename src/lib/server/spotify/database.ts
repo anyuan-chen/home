@@ -16,6 +16,21 @@ export async function addSongToDB(song: Track) {
     },
     update: {},
   });
+  const existingAlbum = await prisma.spotifyAlbum.upsert({
+    where: {
+      id: song.album.id,
+    },
+    create: {
+      id: song.album.id,
+      href: song.album.href,
+      name: song.album.name,
+      release_date: song.album.release_date,
+      release_date_precision: song.album.release_date_precision,
+      total_tracks: song.album.total_tracks,
+      uri: song.album.uri,
+    },
+    update: {},
+  });
   const artists = await Promise.all(
     song.artists.map((artist) => {
       return prisma.spotifyArtist.upsert({
@@ -38,7 +53,7 @@ export async function addSongToDB(song: Track) {
     })
   );
   if (song.album.images.length > 0) {
-    const images = prisma.spotifyAlbumImage.upsert({
+    const images = await prisma.spotifyAlbumImage.upsert({
       where: {
         album_id: song.album.id,
       },

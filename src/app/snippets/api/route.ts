@@ -7,11 +7,24 @@ import {
   LinkSubmission,
   LyricSubmission,
   QuoteSubmission,
+  SpotifyAlbum,
+  SpotifyAlbumImage,
+  SpotifyRelationship,
+  SpotifySong,
 } from "@prisma/client";
 
+export type LyricSubmissionWithSongData = LyricSubmission & {
+  song: SpotifySong & {
+    SpotifyRelationship: SpotifyRelationship & {
+      SpotifyAlbum: SpotifyAlbum & {
+        SpotifyImage: SpotifyAlbumImage;
+      };
+    };
+  };
+};
 export interface AllSnippets {
   links: LinkSubmission[];
-  lyrics: LyricSubmission[];
+  lyrics: LyricSubmissionWithSongData[];
   quotes: QuoteSubmission[];
 }
 export async function getSnippets(): Promise<AllSnippets> {
@@ -39,13 +52,13 @@ export async function getSnippets(): Promise<AllSnippets> {
   const res = await Promise.all(all);
   const submissions = {
     links: res[0] as LinkSubmission[],
-    lyrics: res[1] as LyricSubmission[],
+    lyrics: res[1] as unknown as LyricSubmissionWithSongData[], //convert fail
     quotes: res[2] as QuoteSubmission[],
   };
   return submissions;
 }
 
 export async function GET() {
-  const submissions = getSnippets();
+  const submissions = await getSnippets();
   return NextResponse.json(submissions);
 }
