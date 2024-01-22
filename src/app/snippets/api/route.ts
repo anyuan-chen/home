@@ -17,7 +17,23 @@ export interface AllSnippets {
 export async function getSnippets(): Promise<AllSnippets> {
   const all = [
     prisma.linkSubmission.findMany(),
-    prisma.lyricSubmission.findMany(),
+    prisma.lyricSubmission.findMany({
+      include: {
+        song: {
+          include: {
+            SpotifyRelationship: {
+              include: {
+                SpotifyAlbum: {
+                  include: {
+                    SpotifyImage: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    }),
     prisma.quoteSubmission.findMany(),
   ];
   const res = await Promise.all(all);
