@@ -91,7 +91,7 @@ model SpotifySong {
   popularity          Int?
   SpotifyListen       SpotifyListen[]
   SpotifyRelationship SpotifyRelationship[]
-  LyricSubmission      LyricSubmission[]
+  LyricSubmission     LyricSubmission[]
 }
 
 model SpotifyUser {
