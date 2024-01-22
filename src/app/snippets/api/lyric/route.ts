@@ -24,13 +24,19 @@ export async function POST(req: Request) {
       status: 500,
     });
   }
-  const song = await GetSpotifySongByID(token, body.spotify_id);
-  console.log("song song song", song)
+  const song = await GetSpotifySongByID(body.spotify_id);
+  if (!song) {
+    return new Response("no song exists with this id", {
+      status: 400,
+    });
+  }
+  console.log("song song song", song);
   let song_from_db = await prisma.spotifySong.findFirst({
     where: {
       id: song.id,
     },
   });
+
   if (!song_from_db) {
     song_from_db = await prisma.spotifySong.create({
       data: {
@@ -38,7 +44,7 @@ export async function POST(req: Request) {
         duration_ms: song.duration_ms,
         explicit: song.explicit,
         href: song.album.images[0]?.url || "",
-        name:song.name,
+        name: song.name,
         popularity: song.popularity,
       },
     });

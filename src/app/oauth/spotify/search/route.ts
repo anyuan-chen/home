@@ -9,9 +9,7 @@ export async function GET(request: Request) {
       status: 500,
     });
   }
-  const params = new URLSearchParams(
-    request.url.substring(request.url.indexOf("?"))
-  );
+  const params = new URLSearchParams(new URL(request.url).search);
 
   console.log(params, request.url);
   if (!params.get("query") || !params.get("limit")) {
@@ -27,8 +25,8 @@ export async function GET(request: Request) {
     });
   }
   const query = params.get("query") || "";
-  const songs = await GetSpotifySong(token, query, limit);
-  console.log(songs)
+  const songs = await GetSpotifySong(query, limit);
+  console.log(songs);
   if (!songs) {
     return new Response("songs is null", {
       status: 500,

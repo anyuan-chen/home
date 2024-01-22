@@ -8,7 +8,7 @@ export interface SongProps {
   artists: string;
   timeFetched: Date;
 }
-async function getCurrentSong(): Promise<SongProps | null> {
+export async function GetCurrentSong(): Promise<SongProps | null> {
   let andrewAccessToken;
   try {
     andrewAccessToken = await GetAndrewChenAccessToken();
