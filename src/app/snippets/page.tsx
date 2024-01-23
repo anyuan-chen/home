@@ -1,14 +1,7 @@
 "use client";
 import useSWR, { Fetcher } from "swr";
 import { AllSnippets, LyricSubmissionWithSongData } from "./api/route";
-import { Card, CardContent } from "@/components/ui/card";
-import { useMediaQueries } from "@react-hook/media-query";
-import {
-  LinkSubmission,
-  LyricSubmission,
-  QuoteSubmission,
-  SpotifySong,
-} from "@prisma/client";
+import { LinkSubmission, QuoteSubmission } from "@prisma/client";
 import LyricCard from "./(components)/LyricCard";
 import LinkCard from "./(components)/LinkCard";
 import QuoteCard from "./(components)/QuoteCard";
