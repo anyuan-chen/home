@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { Song } from "@prisma/client";
 
 const submitSongmail = async (

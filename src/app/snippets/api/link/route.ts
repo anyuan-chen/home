@@ -1,4 +1,4 @@
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export interface SnippetLinkProps {

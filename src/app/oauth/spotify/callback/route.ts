@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import moment from "moment";
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: Request) {

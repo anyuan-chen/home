@@ -1,4 +1,4 @@
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { SpotifyUser } from "@prisma/client";
 import { AccessToken, SpotifyApi } from "@spotify/web-api-ts-sdk";
 import moment from "moment";
@@ -105,5 +105,5 @@ export {
   GetAndrewChenAccessToken,
   GetAndrewChenFullAccessToken,
   RefreshSpotifyTokens,
-  GetAuthorizedSDK
+  GetAuthorizedSDK,
 };

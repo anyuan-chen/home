@@ -1,4 +1,4 @@
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { Artist, SimplifiedArtist, Track } from "@spotify/web-api-ts-sdk";
 
 export async function addSongToDB(song: Track) {

@@ -1,4 +1,4 @@
-import { prisma } from "@/app/layout";
+import { prisma } from "@/lib/utils";
 import { addSongToDB } from "@/lib/server/spotify/database";
 import {
   GetSpotifySong,
