@@ -1,50 +1,36 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { PrismaClient } from "@prisma/client";
 
 const neueMontreal = localFont({
   src: [
     {
-      path: "../../public/neuemontreal/NeueMontreal-Bold.woff2",
-      weight: "bold",
-      style: "normal",
+      path: "../../public/neuemontreal/PPNeueMontreal-Bold.otf",
+      weight: "800",
     },
     {
-      path: "../../public/neuemontreal/NeueMontreal-BoldItalic.woff2",
-      weight: "bold",
+      path: "../../public/neuemontreal/PPNeueMontreal-Italic.otf",
+      weight: "450",
       style: "italic",
     },
     {
-      path: "../../public/neuemontreal/NeueMontreal-Italic.woff2",
-      weight: "normal",
-      style: "italic",
+      path: "../../public/neuemontreal/PPNeueMontreal-Book.otf",
+      weight: "400",
     },
     {
-      path: "../../public/neuemontreal/NeueMontreal-Light.woff2",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../../public/neuemontreal/NeueMontreal-LightItalic.woff2",
+      path: "../../public/neuemontreal/PPNeueMontreal-Thin.otf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "../../public/neuemontreal/NeueMontreal-Medium.woff2",
-      weight: "500",
+      path: "../../public/neuemontreal/PPNeueMontreal-Medium.otf",
+      weight: "530",
       style: "normal",
     },
     {
-      path: "../../public/neuemontreal/NeueMontreal-MediumItalic.woff2",
-      weight: "500",
-      style: "italic",
-    },
-    {
-      path: "../../public/neuemontreal/NeueMontreal-Regular.woff2",
-      weight: "normal",
-      style: "normal",
+      path: "../../public/neuemontreal/PPNeueMontreal-SemiBolditalic.otf",
+      weight: "700",
     },
   ],
   variable: "--font-neue-montreal",
@@ -65,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={neueMontreal.variable}>{children}</body>
-      <Toaster></Toaster>
+      {/* <Toaster></Toaster> */}
     </html>
   );
 }

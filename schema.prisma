@@ -154,6 +154,7 @@ model QuoteSubmission {
   id String @id @default(uuid())
   content String
   author String
+  dateCreated DateTime @default(now())
 }
 
 model LyricSubmission {
@@ -161,6 +162,7 @@ model LyricSubmission {
   song_id String 
   song SpotifySong @relation(fields: [song_id], references: [id])
   content String
+  dateCreated DateTime @default(now())
 
   @@index([song_id])
 }
@@ -169,4 +171,6 @@ model LinkSubmission {
   id String @id @default(uuid())
   link String
   linkText String 
+  dateCreated DateTime @default(now())
+
 }
