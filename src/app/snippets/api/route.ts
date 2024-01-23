@@ -9,19 +9,23 @@ import {
   QuoteSubmission,
   SpotifyAlbum,
   SpotifyAlbumImage,
+  SpotifyArtist,
   SpotifyRelationship,
   SpotifySong,
 } from "@prisma/client";
 
 export type LyricSubmissionWithSongData = LyricSubmission & {
   song: SpotifySong & {
-    SpotifyRelationship: SpotifyRelationship & {
-      SpotifyAlbum: SpotifyAlbum & {
-        SpotifyImage: SpotifyAlbumImage;
-      };
-    };
+    SpotifyRelationship: SpotifyRelationship &
+      {
+        SpotifyAlbum: SpotifyAlbum & {
+          SpotifyImage: SpotifyAlbumImage[];
+        };
+        SpotifyArtist: SpotifyArtist;
+      }[];
   };
 };
+
 export interface AllSnippets {
   links: LinkSubmission[];
   lyrics: LyricSubmissionWithSongData[];
@@ -41,6 +45,7 @@ export async function getSnippets(): Promise<AllSnippets> {
                     SpotifyImage: true,
                   },
                 },
+                SpotifyArtist: true,
               },
             },
           },
