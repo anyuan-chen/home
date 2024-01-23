@@ -31,7 +31,7 @@ export interface AllSnippets {
   lyrics: LyricSubmissionWithSongData[];
   quotes: QuoteSubmission[];
 }
-export async function getSnippets(): Promise<AllSnippets> {
+async function getSnippets(): Promise<AllSnippets> {
   const all = [
     prisma.linkSubmission.findMany(),
     prisma.lyricSubmission.findMany({
