@@ -76,7 +76,7 @@ const Page = () => {
   const { data, error, isLoading } = useSWR("/snippets/api", fetcher);
   const dateOrdered = data && getDateOrderedArray(data);
   const screenSize = useScreenSize();
-  const x = screenSize === "sm" ? 1 : 3;
+  const x = screenSize === "sm" ? 1 : screenSize === "md" ? 2 : 3;
   const xColumn = dateOrdered && getXColumn(dateOrdered, x);
 
   const mainContent = isLoading ? (
@@ -93,10 +93,10 @@ const Page = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-10 gap-4">
-        <BorderCard className="col-span-4 py-6 text-3xl bg-accent">
+        <BorderCard className="col-span-10 md:col-span-4 py-6 text-3xl bg-accent">
           curated bits of the internet
         </BorderCard>
-        <BorderCard className="col-span-6 py-6 bg-accent-orange">
+        <BorderCard className="col-span-6 py-6 bg-accent-orange hidden  md:block">
           <span className="text-2xl">
             homepage on {displayDate.toDateString()}
           </span>
