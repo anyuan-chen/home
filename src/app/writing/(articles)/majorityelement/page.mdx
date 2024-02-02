@@ -1,0 +1,156 @@
+import MdxLayout from "@/components/ui/mdxlayout";
+
+export const metadata = {
+  title: "Majority Voting",
+  date: "10/22",
+  tags: ["technical"],
+  cover: ""
+};
+
+# Using Go to Parellelize Majority Voting
+
+## Non-Concurrent Solutions
+
+The majority vote algorithm solves a simple problem: given an array of $n$ elements, find the elements that appears more than half the time. To be precise, for odd lists this would be at least $\frac{n-1}{2} + 1$ . For even length arrays, it would be at least $\frac{n}{2} + 1$ times.
+
+This is a problem that has an obvious solution for most programmers - maintain a hashmap which has the element as a key, and the number of occurences as a value. In the case where all elements were different, this hashmap would be of size $n$, making this solution fairly memory inefficient. Another more clever slolution that anybody could come up with is simply sorting the array, and taking the middle element. This always works, as no matter how you arrange a sorted array, the majority element will take up a block that contains the middle element. However, even if we use average case $O(nlogn)$ quicksort, the time complexity of this solution is is still higher than the average of $O(n)$ that it takes for the hashmap solution.
+
+There is however, one more less obvious solution: the Boyer-Moore Majority Vote Algorithm.
+
+This algorithm is very simple. We maintain two variables: `candidate`, which is an element which _might_ be the majority element, and `bm_count` . `bm_count` can only be understood in the context of the algorithm itself. The algorithm starts by initializing `candidate` to a null value, and `bm_count` to 0. We then start looping through the list of values: if the current element is equal to `candidate`, `bm_count` is increased by 1. If the current element isn't equal to candidate, `bm_count` is reduced by 1. However, in the case that the count is already zero we set `candidate` to the current element and give it a count of 1, as everything before it has already been paired off. The value in `candidate` after the whole loop will contain the majority element.
+
+This algorithm intuitively doesn't seem like it'll always produce the right answer. The purpose of the algorithm is to "pair" elements with distinct values and then eliminate both. After each iteration of the loop, `bm_count` represents the number of appearances of `candidate` that have yet to be "paired" off. At the end, we realize that the majority will always be `candidate`, because there aren't enough other elements which can be "paired" off with the majority element.
+
+Code for this approach looks like the following (C++):
+
+```cpp
+int majorityElement(vector<int>& nums) {
+	int candidate = 0; int count = 0;
+	for (int i = 0; i < nums.size(); i++){
+		if (count == 0){
+			candidate=nums[i];
+		}
+		if (candidate == nums[i]){
+			count++;
+		} else {
+			count--;
+		}
+	}
+	return candidate;
+}
+```
+
+## Concurrent Solution
+
+Now that we've found a very efficient algorith, we could stop here. But what if we wanted to go further and solve this problem while taking advantage of modern processors? One interesting note is that the Boyer-Moore algorithm can be modified slightly to work with any amount of machines.
+
+If we execute the Boyer-Moore algorithm on a subarray you get the candidate and the count for that specific subarray. Let's take the array [1,1,1,1,2,2,2]. If we split this into the arrays [1,1,1,1] and [2,2,2], we would get that `candidate =  1` and `count = 4` for [1,1,1,1] and `candidate = 2` and `count = 3` for [2,2,2]. To combine the results, we run something similar to the Boyer-Moore algorithm on the non-paired elements of each subarray. So, since we have 4 unpaired 1s, and 3 unpaired 2s, we pair 1s and 2s until we're left with one unpaired 1 at the end.
+
+Note that since we have a list of candidates and frequencies from the Boyer-Moore algorithms instead of just a list of numbers, our final modified Boyer-Moore to combine is able to process each candidate count subresult at once. The code for this approach is given below, implemented in Go with goroutines for concurrency.
+
+```go
+func MajorityElement(slice []int, number_of_divisions int) (int, error) {
+	p := number_of_divisions
+	//length of each subproblem
+	length := len(slice) / p
+	//channel to solve subproblem solutions
+	//[0] holds the candidate
+	//[1] holds the candidate
+	candidate_channel := make(chan []int, len(slice)/length+2)
+	var wg sync.WaitGroup
+	//start solving all of the subproblems
+	for i := 0; i < len(slice)-length; i += length {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			BoyerMoore(slice[i:i+length], candidate_channel)
+		}(i)
+		if i+length >= len(slice)-length {
+			wg.Add(1)
+			go func(i int) {
+				defer wg.Done()
+				BoyerMoore(slice[i+length:], candidate_channel)
+			}(i)
+		}
+	}
+	//wait until the subproblems have all been solved
+	wg.Wait()
+	overallCandidate := 0
+	overallCount := 0
+	close(candidate_channel)
+	//intermediate step of running modified boyer-moore on our results
+	for candidate_count_pair := range candidate_channel {
+		candidate := candidate_count_pair[0]
+		count := candidate_count_pair[1]
+		if candidate == overallCandidate {
+			overallCount += count
+		} else if count > overallCount {
+			overallCandidate = candidate
+			overallCount = count - overallCount
+		} else {
+			overallCount -= count
+		}
+	}
+	//this code is in case we aren't sure there's a majority candidate
+	//counts the occurences of the last candidate, and sees if its over half of the length
+	occurences_channel := make(chan int, len(slice)/length+2)
+	for i := 0; i < len(slice); i += length {
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			Count(slice[i:i+length], overallCandidate, occurences_channel)
+		}(i)
+		if i+length > len(slice)-length {
+			wg.Add(1)
+			go func(i int) {
+				defer wg.Done()
+				Count(slice[i+length:], overallCandidate, occurences_channel)
+			}(i)
+		}
+	}
+	wg.Wait()
+	total_occurrences := 0
+	close(occurences_channel)
+	for divided_occurrence := range occurences_channel {
+		total_occurrences += divided_occurrence
+	}
+	if total_occurrences > len(slice)/2 {
+		return overallCandidate, nil
+	} else {
+		return 0, errors.New("no majority candidate")
+	}
+}
+
+func BoyerMoore(slice []int, OutputChannel chan []int) {
+	candidate := 0
+	count := 0
+	for _, element := range slice {
+		if count == 0 {
+			candidate = element
+			count = 1
+		} else if candidate == element {
+			count++
+		} else {
+			count--
+		}
+	}
+	result := []int{candidate, count}
+	OutputChannel <- result
+}
+func Count(slice []int, element int, OutputChannel chan int) {
+	cnt := 0
+	for _, v := range slice {
+		if v == element {
+			cnt++
+		}
+	}
+	OutputChannel <- cnt
+}
+
+```
+
+Results? As expected, the cost of making channels, communication, and the extra combindation step makes this ineffective on any smaller arrays. However, given a large enough array and enough CPU cores it's certain that this could be much faster.
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}
