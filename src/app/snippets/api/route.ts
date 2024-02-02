@@ -33,7 +33,11 @@ export interface AllSnippets {
 }
 async function getSnippets(): Promise<AllSnippets> {
   const all = [
-    prisma.linkSubmission.findMany(),
+    prisma.linkSubmission.findMany({
+      orderBy: {
+        dateCreated: "desc",
+      },
+    }),
     prisma.lyricSubmission.findMany({
       include: {
         song: {
@@ -51,8 +55,15 @@ async function getSnippets(): Promise<AllSnippets> {
           },
         },
       },
+      orderBy: {
+        dateCreated: "desc",
+      },
     }),
-    prisma.quoteSubmission.findMany(),
+    prisma.quoteSubmission.findMany({
+      orderBy: {
+        dateCreated: "desc",
+      },
+    }),
   ];
   const res = await Promise.all(all);
   const submissions = {
