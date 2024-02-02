@@ -2,7 +2,6 @@ import BorderCard from "@/components/ui/bordercard";
 import path from "path";
 import React from "react";
 import fs from "fs";
-import { Main } from "next/document";
 
 async function getData() {
   //get all folder names in the current folder
