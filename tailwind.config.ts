@@ -51,8 +51,8 @@ const config = {
           darker: "hsl(45, 43%, 90%)",
           foreground: "hsl(var(--accent-foreground))",
           purple: {
-            lighter: "hsl(266, 100%, 95%)",
-            DEFAULT: "hsl(266, 100%, 94%)",
+            lighter: "hsl(266, 100%, 97%)",
+            DEFAULT: "hsl(266, 100%, 96%)",
             darker: "hsl(266, 100%, 93%)",
           },
           green: {

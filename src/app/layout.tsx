@@ -19,6 +19,10 @@ const neueMontreal = localFont({
     },
     {
       path: "../../public/neuemontreal/PPNeueMontreal-Book.otf",
+      weight: "280",
+    },
+    {
+      path: "../../public/neuemontreal/PPNeueMontreal-Regular.woff",
       weight: "400",
     },
     {
@@ -28,7 +32,7 @@ const neueMontreal = localFont({
     },
     {
       path: "../../public/neuemontreal/PPNeueMontreal-Medium.otf",
-      weight: "530",
+      weight: "500",
       style: "normal",
     },
     {
@@ -51,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={neueMontreal.variable}>
+      <body className={neueMontreal.className}>
         <LayoutClientWrap>{children}</LayoutClientWrap>
         <Bar></Bar>
       </body>
