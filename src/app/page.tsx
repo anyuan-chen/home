@@ -1,58 +1,41 @@
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+"use client";
+import { motion } from "framer-motion";
+import BorderCard from "@/components/ui/bordercard";
+import CurrentlyPlaying from "./(components)/ipod";
+import UnderlineAnimation from "@/components/ui/UnderlineAnimation";
 
 export default function DialogDemo() {
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <div>
-          <Button variant="outline-purple">Edit Profile</Button>
-          <Button variant="outline-green">dsfsdf</Button>
-        </div>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              id="name"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
-            />
+    <div className="p-8 gap-8 flex flex-col">
+      <div className="flex lg:gap-x-8 gap-x-4">
+        <BorderCard className="flex flex-col flex-grow p-8 gap-16 bg-accent">
+          <h1 className="text-3xl lg:text-3xl xl:text-5xl font-medium text-gray-700">
+            welcome to andrew&apos;s digital bedroom
+          </h1>
+          <h1 className="text-xl lg:text-3xl text-gray-400">
+            a bedroom [bed-room] is a place of emotional reflection, growth, and
+            rest.
+          </h1>
+          <div className="mt-auto flex flex-row-reverse">
+            <span className="block">built in waterloo, canada</span>
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </BorderCard>
+      </div>
+      <div className="flex gap-8 ">
+        <BorderCard className="text-5xl p-8 bg-accent-green flex-grow text-gray-400">
+          hi
+        </BorderCard>
+        <CurrentlyPlaying></CurrentlyPlaying>
+      </div>
+      <div className="flex lg:gap-x-8 gap-x-4">
+        <BorderCard className="min-w-[200px] bg-accent-lighter">
+          i write
+        </BorderCard>
+        <BorderCard className="flex flex-col flex-grow p-8 gap-16 bg-accent-purple-lighter">
+          <div></div>
+          <div>see more</div>
+        </BorderCard>
+      </div>
+    </div>
   );
 }

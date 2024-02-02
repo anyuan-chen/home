@@ -9,7 +9,7 @@ interface BorderCardProps {
 const BorderCard = ({ children, className }: BorderCardProps) => {
   return (
     <Card
-      className={twMerge("px-4 py-4 border rounded-xl border-gray-500", className)}
+      className={twMerge("px-4 py-4 border rounded-xl border-gray-300", className)}
     >
       {children}
     </Card>

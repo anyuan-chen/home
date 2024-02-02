@@ -10,7 +10,7 @@ import BorderCard from "@/components/ui/bordercard";
 import useScreenSize from "@/lib/hooks/useScreenSize";
 import { Button } from "@/components/ui/button";
 
-const fetcher: Fetcher<AllSnippets, string> = (...args) =>
+ const fetcher: Fetcher<AllSnippets, string> = (...args) =>
   fetch(...args).then((res) => res.json());
 
 const orderByDate = (a: any, b: any) => {
