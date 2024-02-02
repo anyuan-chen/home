@@ -1,5 +1,7 @@
 import { useMediaQueries } from "@react-hook/media-query";
 
+type ScreenSize = "2xl" | "xl" | "lg" | "md" | "sm";
+
 const useScreenSize = () => {
   const screenSize = useMediaQueries({
     sm: "screen and (min-width: 640px)",
@@ -20,5 +22,13 @@ const useScreenSize = () => {
     return "sm";
   }
 };
+
+export function isLargerThan(a: ScreenSize, b: ScreenSize) {
+  const order = ["sm", "md", "lg", "xl", "2xl"];
+  if (order.indexOf(a) > order.indexOf(b)) {
+    return true;
+  }
+  return false;
+}
 
 export default useScreenSize;

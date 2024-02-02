@@ -22,7 +22,12 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          lighter: "hsl(50 12% 93%)",
+          darker: "hsl(50 12% 80%)",
+          superdark: "#726E5A",
+        },
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -42,6 +47,8 @@ const config = {
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
+          lighter: "hsl(45, 43%, 97%)",
+          darker: "hsl(45, 43%, 90%)",
           foreground: "hsl(var(--accent-foreground))",
           purple: {
             lighter: "hsl(266, 100%, 95%)",

@@ -11,7 +11,7 @@ export default function QuoteCard({ data, color = "purple" }: QuoteCardProps) {
 
   return (
     <Card
-      className={"w-full rounded-lg border-gray-600" + " " + colorMap[color]}
+      className={"rounded-lg border-gray-600 " + " " + colorMap[color]}
     >
       <CardContent className="p-4 flex flex-col gap-4">
         <blockquote className="font-medium text-xl">{content}</blockquote>

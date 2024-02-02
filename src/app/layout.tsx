@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { PrismaClient } from "@prisma/client";
+import Bar from "@/components/navigation/bar";
+import { KBarProvider } from "kbar";
+import LayoutClientWrap from "./(components)/layoutclientwrap";
 
 const neueMontreal = localFont({
   src: [
@@ -48,7 +51,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={neueMontreal.variable}>{children}</body>
+      <body className={neueMontreal.variable}>
+        <LayoutClientWrap>{children}</LayoutClientWrap>
+        <Bar></Bar>
+      </body>
       {/* <Toaster></Toaster> */}
     </html>
   );
