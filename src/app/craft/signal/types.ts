@@ -93,8 +93,8 @@ export type SignalWordFrequencies = {
 // };
 
 export type SignalEmotions = {
-  [emotion : string] : number
-}
+  [emotion: string]: number;
+};
 
 export type SignalTimedSchedule = {
   [time: string]: SignalIncomingMessage | SignalOutgoingMessage;
@@ -102,8 +102,14 @@ export type SignalTimedSchedule = {
 
 export type SignalQuote = (SignalIncomingMessage | SignalOutgoingMessage)[];
 
-export type SignalWordsPerPerson = {
+export type SignalXPerPerson = {
   [word: string]: {
+    [username: string]: number;
+  };
+};
+
+export type SignalXPerDay = {
+  [day: string]: {
     [username: string]: number;
   };
 };
@@ -133,9 +139,21 @@ export type SignalData = {
     [cid: string]: SignalTimedSchedule;
   };
   words_per_person: {
-    [cid: string]: SignalWordsPerPerson;
+    [cid: string]: SignalXPerPerson;
   };
   message_length: {
     [cid: string]: SignalMessageLength;
+  };
+  messages_per_day: {
+    [cid: string]: SignalXPerDay;
+  };
+  double_text: {
+    [cid: string]: SignalXPerPerson;
+  };
+  basic_info: {
+    [cid: string]: {
+      first_message_timestamp: number;
+      last_message_timestamp: number;
+    };
   };
 };
