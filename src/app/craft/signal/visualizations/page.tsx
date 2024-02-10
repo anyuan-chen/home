@@ -5,6 +5,9 @@ import MessagesSent from "./(components)/messagesSent";
 import Header from "./(components)/header";
 import MessageLength from "./(components)/messageLength";
 import Emotions from "./(components)/emotions";
+import PerDay from "./(components)/perDay";
+import RadialBarsMesssagesDaysOfWeek from "./(components)/radialBarsMesssagesDaysOfWeek";
+import GoodMorningBarChart from "./(components)/goodMorningBarChart";
 
 export type SignalPerson = {
   name: string;
@@ -84,6 +87,10 @@ const Page = () => {
         <Header></Header>
         <MessageLength></MessageLength>
         <Emotions></Emotions>
+        <PerDay></PerDay>
+        <RadialBarsMesssagesDaysOfWeek></RadialBarsMesssagesDaysOfWeek>
+        <GoodMorningBarChart dataKey="goodmorning"></GoodMorningBarChart>
+        <GoodMorningBarChart dataKey="sleepschedule"></GoodMorningBarChart>
       </div>
     </SignalDataContext.Provider>
   );

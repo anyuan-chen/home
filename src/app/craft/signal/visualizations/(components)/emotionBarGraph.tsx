@@ -78,7 +78,11 @@ const EmotionBarGraph = () => {
               y={barY}
               width={barWidth}
               height={barHeight}
-              fill={idx % 2 == 0 ? data.people[0].color : data.people[1].color}
+              fill={
+                idx % 2 == 0
+                  ? data.people[0].color
+                  : data.people[1]?.color || "black"
+              }
               onMouseMove={(event) => {
                 const coords = localPoint(event);
                 if (!coords) return;

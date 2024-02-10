@@ -74,7 +74,6 @@ const MessagesSent = () => {
     };
   });
 
-
   return (
     <div className="relative">
       <svg width={width} height={height} ref={containerRef}>
@@ -89,7 +88,7 @@ const MessagesSent = () => {
           >
             {(pie) => {
               return pie.arcs.map((arc) => {
-                console.log(pie.path(arc));
+                // console.log(pie.path(arc));
                 const oldArc = {
                   ...arc,
                   total: 0,
