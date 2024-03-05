@@ -8,6 +8,8 @@ import Emotions from "./(components)/emotions";
 import PerDay from "./(components)/perDay";
 import RadialBarsMesssagesDaysOfWeek from "./(components)/radialBarsMesssagesDaysOfWeek";
 import GoodMorningBarChart from "./(components)/goodMorningBarChart";
+import DaysOfWeek from "./(components)/DaysOfWeek";
+import TimeOfDay from "./(components)/TimeOfDay";
 
 export type SignalPerson = {
   name: string;
@@ -88,9 +90,9 @@ const Page = () => {
         <MessageLength></MessageLength>
         <Emotions></Emotions>
         <PerDay></PerDay>
-        <RadialBarsMesssagesDaysOfWeek></RadialBarsMesssagesDaysOfWeek>
-        <GoodMorningBarChart dataKey="goodmorning"></GoodMorningBarChart>
-        <GoodMorningBarChart dataKey="sleepschedule"></GoodMorningBarChart>
+        <DaysOfWeek></DaysOfWeek>
+        <TimeOfDay></TimeOfDay>
+        <div>happy valentines day!</div>
       </div>
     </SignalDataContext.Provider>
   );

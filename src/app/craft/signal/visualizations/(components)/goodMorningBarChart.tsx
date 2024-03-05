@@ -128,7 +128,7 @@ const GoodMorningBarChart = ({
       </AnimatedAxis>
 
       <AnimatedLineSeries
-        stroke="#008561"
+        stroke="#4975E8"
         dataKey="primary_line"
         data={shapedData}
         {...accessors}
@@ -138,7 +138,7 @@ const GoodMorningBarChart = ({
         snapTooltipToDatumY
         showSeriesGlyphs
         glyphStyle={{
-          fill: "#008561",
+          fill: "#4975E8",
           strokeWidth: 0,
         }}
         renderTooltip={({ tooltipData }) => {

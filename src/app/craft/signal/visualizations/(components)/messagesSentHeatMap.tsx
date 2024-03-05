@@ -43,7 +43,10 @@ export function shadeColor(color: string, percent: number) {
   return "#" + RR + GG + BB;
 }
 
-const MessagesSentHeatMap = ({ whoseData = "Chloe" }) => {
+interface MessagesSentHeatMapProps {
+  whoseData: string | null;
+}
+const MessagesSentHeatMap = ({ whoseData }: MessagesSentHeatMapProps) => {
   const data = useContext(SignalDataContext);
   const [key, setKey] = useState(data?.contacts[0]);
   const [colors, setColors] = useState<string[]>(["#4975E8", "#4975E8"]);
@@ -65,6 +68,7 @@ const MessagesSentHeatMap = ({ whoseData = "Chloe" }) => {
   const { containerRef, TooltipInPortal } = useTooltipInPortal({
     scroll: true,
   });
+
   useEffect(() => {
     let idxWho = 0;
     data?.people.forEach((person, i) => {
@@ -78,7 +82,7 @@ const MessagesSentHeatMap = ({ whoseData = "Chloe" }) => {
         data.people[idxWho].color,
       ]);
     }
-  }, [data]);
+  }, [data, whoseData]);
 
   if (!data) {
     return null;
@@ -134,7 +138,7 @@ const MessagesSentHeatMap = ({ whoseData = "Chloe" }) => {
       }
       day = new Date(key).getDay();
       finalData[day].bins.push({
-        count: messagesSent[key][whoseData],
+        count: messagesSent[key][whoseData || ""],
         day: days[day],
         date: key,
         bin: 150,
