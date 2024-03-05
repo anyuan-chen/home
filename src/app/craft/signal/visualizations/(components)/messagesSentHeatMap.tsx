@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import { SignalXPerDay } from "../../types";
 import { Group } from "@visx/group";
 import { HeatmapCircle, HeatmapRect } from "@visx/heatmap";

@@ -4,7 +4,7 @@ import { SignalMessageLength } from "../../types";
 import Pie, { ProvidedProps, PieArcDatum } from "@visx/shape/lib/shapes/Pie";
 import { Group } from "@visx/group";
 import { motion } from "framer-motion";
-import { SignalDataContext, SignalPerson } from "../page";
+import { SignalPerson } from "../page";
 import { Annotation, CircleSubject, Connector, Label } from "@visx/annotation";
 import {
   Tooltip,
@@ -14,6 +14,8 @@ import {
   defaultStyles,
 } from "@visx/tooltip";
 import { localPoint } from "@visx/event";
+import { SignalDataContext } from "../(components)/context";
+
 
 export const tooltipStyles = {
   ...defaultStyles,

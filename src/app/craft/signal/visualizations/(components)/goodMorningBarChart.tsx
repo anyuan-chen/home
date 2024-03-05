@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import moment from "moment-timezone";
 import {
   AnimatedAxis,

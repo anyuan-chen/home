@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import MessagesSentHeatMap from "./messagesSentHeatMap";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import {
   Select,
   SelectContent,

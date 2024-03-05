@@ -10,19 +10,12 @@ import RadialBarsMesssagesDaysOfWeek from "./(components)/radialBarsMesssagesDay
 import GoodMorningBarChart from "./(components)/goodMorningBarChart";
 import DaysOfWeek from "./(components)/DaysOfWeek";
 import TimeOfDay from "./(components)/TimeOfDay";
+import { SignalDataContext } from "./(components)/context";
 
 export type SignalPerson = {
   name: string;
   color: string;
 };
-
-export const SignalDataContext = createContext<
-  | (SignalData & {
-      cid: string;
-      people: SignalPerson[];
-    })
-  | null
->(null);
 
 const Page = () => {
   const [cid, setCid] = useState<string | null>(null);

@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useMemo } from "react";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import { Bar } from "@visx/shape";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import {

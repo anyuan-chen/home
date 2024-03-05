@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { SignalMessageLength } from "../../types";
 import { getPerson } from "./header";
-import { SignalDataContext, SignalPerson } from "../page";
+import {  SignalPerson } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import MessagesSent from "./messagesSent";
 
 const MessageLength = () => {

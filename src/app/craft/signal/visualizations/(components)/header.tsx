@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext } from "react";
-import { SignalDataContext, SignalPerson } from "../page";
+import { SignalPerson } from "../page";
+import { SignalDataContext } from "../(components)/context";
 
 interface HeaderProps {
   // person1: SignalPerson;

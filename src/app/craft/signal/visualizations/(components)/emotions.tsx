@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import EmotionBarGraph from "./emotionBarGraph";
 
 const Emotions = () => {

@@ -1,7 +1,7 @@
 "use client";
 import { Group } from "@visx/group";
 import React, { useContext, useMemo } from "react";
-import { SignalDataContext } from "../page";
+import { SignalDataContext } from "../(components)/context";
 import { scaleBand, scaleRadial } from "@visx/scale";
 import { Arc } from "@visx/shape";
 import { Text } from "@visx/text";
